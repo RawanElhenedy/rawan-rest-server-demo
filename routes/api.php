@@ -84,9 +84,7 @@ Route::post('/students', function (Request $request) {
     $studentId = DB::table('students')->insertGetId($data);
 
     return response()->json([
-        'data' => [
-            'id' => $studentId,
-        ],
+        'data' => ['id' => $studentId,],
     ]);
 });
 /* 
@@ -306,7 +304,7 @@ Route::get('/grades', function () {
 
 // Get grades for specific student
 Route::get('/students/{student_id}/grades', function ($studentId) {
-    $rawData = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = ?", [$studentId]));
+    $rawData = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = :student_id"), ['student_id' => $studentId]);
 
     $responseData = [];
 
@@ -318,8 +316,9 @@ Route::get('/students/{student_id}/grades', function ($studentId) {
         ]);
     }
 
-    return response()->json(['data' => $responseData,]);
+    return response()->json(['data' => $responseData]);
 });
+
 
   /*
    * TODO: Get specific grade for specific student only. Shall return one record only if exists.
