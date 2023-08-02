@@ -81,11 +81,10 @@ Route::post('/students', function (Request $request) {
         'phone' => 'required',
     ]);
 
-    // Insert the student into the database and retrieve the generated 'id'
     $studentId = DB::table('students')->insertGetId($data);
 
     return response()->json([
-        'data' => ['id' => $studentId],
+        'data' => ['id' => $studentId]
     ]);
 });
 
