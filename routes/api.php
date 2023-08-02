@@ -336,7 +336,7 @@ Route::get('/students/{student_id}/grades', function ($studentId) {
   */
   // Get specific grade for specific student
   Route::get('/students/{student_id}/grades/{grade_id}', function ($studentId, $gradeId) {
-    $grade = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = :student_id AND id = :grade_id", ['student_id' => $studentId, 'grade_id' => $gradeId]));
+    $grade = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = :student_id AND id = :grade_id"), ['student_id' => $studentId, 'grade_id' => $gradeId]);
 
     if ($grade) {
         return response()->json(['data' => $grade[0]]);
