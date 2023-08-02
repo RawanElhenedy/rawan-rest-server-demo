@@ -197,14 +197,18 @@ Route::put('/students/{id}', function (Request $request, $id) {
  });
  
  // Create new course
-Route::post('/courses', function (Request $request) {
-    $courseData = $request->only(['name']); 
+ Route::post('/courses', function (Request $request) {
+    $data = $request->validate([
+        'name' => 'required'
+    ]);
 
-    $newCourse = new Course($courseData);
-    $newCourse->save();
+    $courseId = DB::table('courses')->insertGetId($data);
 
-    return response()->json(['data' => ['id' => $newCourse->id]], 201);
+    return response()->json([
+        'data' => ['id' => $courseId]
+    ]);
 });
+
 
  
  // Get course details by id

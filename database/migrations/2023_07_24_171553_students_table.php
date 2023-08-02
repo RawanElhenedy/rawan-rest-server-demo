@@ -18,15 +18,14 @@ return new class extends Migration
             email TEXT not null,
             phone TEXT not null
         )");
-        DB::statement("INSERT INTO students (name, email, phone) VALUES ('Ahmed', 'ahmed@test.com', '+201000000001')");
-        DB::statement("INSERT INTO students (name, email, phone) VALUES ('Mostafa', 'mostafa@test.com', '+201000000002')");
 
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (1, 'Ahmed', 'ahmed@test.com', '+201000000001')");
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (2, 'Mostafa', 'mostafa@test.com', '+201000000002')");
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (3, 'Rawan', 'rawan@test.com', '+201000000003')");
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (4, 'Tarek', 'tarek@test.com', '+201000000004')");
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (5, 'Mariam', 'mariam@test.com', '+201000000005')");
-        // DB::statement("INSERT INTO students (id, name, email, phone) VALUES (6, 'Salah', 'salas@test.com', '+201000000006')");
+
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (1, 'Ahmed', 'ahmed@test.com', '+201000000001')");
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (2, 'Mostafa', 'mostafa@test.com', '+201000000002')");
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (3, 'Rawan', 'rawan@test.com', '+201000000003')");
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (4, 'Tarek', 'tarek@test.com', '+201000000004')");
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (5, 'Mariam', 'mariam@test.com', '+201000000005')");
+        DB::statement("INSERT INTO students (id, name, email, phone) VALUES (6, 'Salah', 'salas@test.com', '+201000000006')");
     }
 
     /**
