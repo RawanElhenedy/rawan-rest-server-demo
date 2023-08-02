@@ -81,12 +81,14 @@ Route::post('/students', function (Request $request) {
         'phone' => 'required',
     ]);
 
+    // Insert the student into the database and retrieve the generated 'id'
     $studentId = DB::table('students')->insertGetId($data);
 
     return response()->json([
-        'data' => ['id' => $studentId,],
+        'data' => ['id' => $studentId],
     ]);
 });
+
 /* 
     * TODO: Get student details by id
     * URL: GET /students/{id}
@@ -196,19 +198,15 @@ Route::put('/students/{id}', function (Request $request, $id) {
  });
  
  // Create new course
- Route::post('/courses', function (Request $request) {
-     $data = $request->validate([
-         'name' => 'required',
-     ]);
- 
-     $courseId = DB::table('courses')->insertGetId($data);
- 
-     return response()->json([
-         'data' => [
-             'id' => $courseId,
-         ],
-     ]);
- });
+Route::post('/courses', function (Request $request) {
+    $courseData = $request->only(['name']); 
+
+    $newCourse = new Course($courseData);
+    $newCourse->save();
+
+    return response()->json(['data' => ['id' => $newCourse->id]], 201);
+});
+
  
  // Get course details by id
  Route::get('/courses/{id}', function ($id) {
@@ -334,12 +332,14 @@ Route::get('/students/{student_id}/grades', function ($studentId) {
         }
   */
   // Get specific grade for specific student
-Route::get('/students/{student_id}/grades/{grade_id}', function ($studentId, $gradeId) {
-    $grade = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = ? AND grade_id = ?", [$studentId, $gradeId]));
+  Route::get('/students/{student_id}/grades/{grade_id}', function ($studentId, $gradeId) {
+    $grade = DB::select(DB::raw("SELECT student_id, course_id, grade FROM grades WHERE student_id = ? AND id = ?", [$studentId, $gradeId]));
 
     if ($grade) {
-        return response()->json(['data' => $grade,]);
+        return response()->json(['data' => $grade[0]]);
     } else {
-        return response()->json(['data' => [],], 404);
+        return response()->json(['data' => []], 404);
     }
 });
+
+
